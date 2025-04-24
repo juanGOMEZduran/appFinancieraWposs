@@ -7,4 +7,5 @@
     <color name="verdeSecundario">#3c8544</color>
     <color name="verdeTerciario">#edf1e8</color>
     <color name="verdeSeleccionado">#ace76d</color>
+    <color name="error"> #ff0000</color>
 </resources>

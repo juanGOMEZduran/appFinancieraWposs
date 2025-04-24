@@ -52,7 +52,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="292dp"
+        android:layout_width="329dp"
         android:layout_height="328dp"
         android:layout_marginTop="22dp"
         android:background="@drawable/rounden_frame_para_cuatro"
@@ -67,31 +67,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="48dp"
 
             android:fontFamily="@font/ar_one_sans_medium"
             android:text="Correo electronico:"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.154"
+            app:layout_constraintHorizontal_bias="0.181"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextTextEmailAddress"
-            android:layout_width="232dp"
+            android:id="@+id/editTextCorreo"
+            android:layout_width="250dp"
             android:layout_height="46dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/edittext_border"
+            android:drawableStart="@drawable/icon_email"
+            android:drawablePadding="5dp"
             android:ems="10"
             android:fontFamily="@font/ar_one_sans_medium"
             android:hint="example@email.com"
             android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.62"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
@@ -103,35 +104,67 @@
 
             android:text="Contraseña:"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
+            app:layout_constraintStart_toStartOf="@+id/editTextCorreo"
+            app:layout_constraintTop_toBottomOf="@+id/editTextCorreo" />
 
-        <EditText
-            android:id="@+id/editTextTextPassword"
-            android:layout_width="232dp"
-            android:layout_height="46dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/edittext_border"
-            android:ems="10"
-            android:fontFamily="@font/ar_one_sans_medium"
-            android:hint="*************"
-            android:inputType="textPassword"
-
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+            <EditText
+                android:id="@+id/editTextContrasena"
+                android:layout_width="250dp"
+                android:layout_height="45dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/edittext_border"
+                android:drawableStart="@drawable/icon_password"
+                android:drawablePadding="5dp"
+                android:ems="10"
+                android:fontFamily="@font/ar_one_sans_medium"
+                android:hint="*************"
+                android:inputType="textPassword"
+                android:paddingEnd="50dp"
+                android:singleLine="false"
+                android:textAlignment="viewStart" />
+
+            <ImageButton
+                android:id="@+id/botonVerContra2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignTop="@+id/editTextContrasena"
+                android:layout_alignEnd="@+id/editTextContrasena"
+                android:layout_alignBottom="@id/editTextContrasena"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="187dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="3dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Ver contraseña"
+                android:src="@drawable/icon_visibility_off" />
+
+        </RelativeLayout>
 
         <Button
             android:id="@+id/button5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:onClick="iniciarSesion"
             android:text="Iniciar sesión"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -143,14 +176,13 @@
         android:layout_marginStart="10dp"
         android:layout_marginBottom="47dp"
         android:fontFamily="@font/ar_one_sans_medium"
-        android:text="¿No tienes una cuenta?
-"
+        android:text="¿No tienes una cuenta?"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/constraintLayout" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/textRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

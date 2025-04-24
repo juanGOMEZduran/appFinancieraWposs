@@ -22,17 +22,297 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.529" />
+        app:layout_constraintVertical_bias="0.444" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="332dp"
-        android:layout_height="589dp"
-        android:layout_marginTop="96dp"
+        android:layout_width="353dp"
+        android:layout_height="705dp"
+        android:layout_marginTop="64dp"
         android:background="@drawable/rounden_frame_para_cuatro"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:text="Escribe tu nombre:"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.106"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextNombreRegister"
+            android:layout_width="300dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+
+            android:background="@drawable/edittext_border"
+            android:drawableStart="@drawable/icon_person"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:hint="example juanito fercho"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:text="Escribe tu apellido:"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/editTextNombreRegister"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNombreRegister" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:text="Escribe tu correo:"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/editTextApellidoRegister"
+            app:layout_constraintTop_toBottomOf="@+id/editTextApellidoRegister" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:text="Escribe tu número de celular:"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/editTextCorreoRegister"
+            app:layout_constraintTop_toBottomOf="@+id/editTextCorreoRegister" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:text="Escribe tu número de Cédula:"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/editTextNumeroRegister"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNumeroRegister" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:text="Escribe tu contraseña:"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/editTextNumeroCedula"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNumeroCedula" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:text="Escribe de nuevo tu contraseña:"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/relativeLayout3"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout3" />
+
+        <EditText
+            android:id="@+id/editTextApellidoRegister"
+            android:layout_width="300dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_border"
+            android:ems="10"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:hint="Gonzalo Hernandes"
+            android:drawableStart="@drawable/icon_apellido"
+            android:drawablePadding="5dp"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <EditText
+            android:id="@+id/editTextCorreoRegister"
+            android:layout_width="300dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_border"
+            android:ems="10"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:hint="turegistro@email.com"
+            android:drawableStart="@drawable/icon_email"
+            android:drawablePadding="5dp"
+            android:inputType="textEmailAddress"
+            app:layout_constraintStart_toStartOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <EditText
+            android:id="@+id/editTextNumeroRegister"
+            android:layout_width="300dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_border"
+            android:ems="10"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:hint="321000050"
+            android:drawableStart="@drawable/icon_numero_celular"
+            android:drawablePadding="5dp"
+            android:inputType="phone"
+            app:layout_constraintStart_toStartOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+        <EditText
+            android:id="@+id/editTextNumeroCedula"
+            android:layout_width="300dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_border"
+            android:ems="10"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:hint="example 1003000950"
+            android:drawableStart="@drawable/icon_cedula"
+            android:drawablePadding="5dp"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="@+id/textView16"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.052"
+            app:layout_constraintStart_toStartOf="@+id/textView17"
+            app:layout_constraintTop_toBottomOf="@+id/textView17">
+            >
+
+            <EditText
+                android:id="@+id/editTextContrasenaRegister"
+                android:layout_width="300dp"
+                android:layout_height="46dp"
+                android:background="@drawable/edittext_border"
+                android:drawableStart="@drawable/icon_password"
+                android:drawablePadding="5dp"
+                android:ems="10"
+                android:fontFamily="@font/ar_one_sans_medium"
+                android:hint="**********"
+                android:inputType="textPassword" />
+
+            <ImageButton
+                android:id="@+id/botonVerContra"
+                android:layout_width="39dp"
+                android:layout_height="37dp"
+                android:layout_alignTop="@+id/editTextContrasenaRegister"
+                android:layout_alignEnd="@+id/editTextContrasenaRegister"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="256dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="3dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Ver contraseña"
+                android:src="@drawable/icon_visibility_off" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+
+            android:id="@+id/relativeLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView18"
+            app:layout_constraintTop_toBottomOf="@+id/textView18">
+
+
+            <EditText
+                android:id="@+id/editTextContrasenaRegisterDos"
+                android:layout_width="300dp"
+                android:layout_height="46dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/edittext_border"
+                android:drawableStart="@drawable/icon_password"
+                android:drawablePadding="5dp"
+                android:ems="10"
+                android:fontFamily="@font/ar_one_sans_medium"
+                android:hint="**********"
+                android:inputType="textPassword"
+                android:paddingEnd="50dp" />
+
+
+            <ImageButton
+                android:id="@+id/botonVerContra2"
+                android:layout_width="39dp"
+                android:layout_height="37dp"
+                android:layout_alignTop="@+id/editTextContrasenaRegisterDos"
+                android:layout_alignEnd="@+id/editTextContrasenaRegisterDos"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="256dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="3dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Ver contraseña"
+                android:src="@drawable/icon_visibility_off" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:onClick="register"
+
+            android:text="Registrate"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
+            app:layout_constraintVertical_bias="0.68" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:background="@color/verdeTerciario"
+        android:clickable="true"
+        android:onClick="volverLogin"
+        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+        app:layout_constraintEnd_toStartOf="@+id/textView8"
+        app:layout_constraintHorizontal_bias="0.346"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView8"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/flecha_atras" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
