@@ -143,6 +143,23 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean verificarCredenciales(String cedulaOCorreo, String contrasena) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Buscar usuario por correo (o cédula si prefieres)
+        Cursor cursor = db.rawQuery("SELECT contrasena FROM usuarios WHERE email = ?",
+                new String[]{cedulaOCorreo});
+
+        if(cursor.moveToFirst()) {
+            String contrasenaEncriptada = cursor.getString(0);
+            cursor.close();
+            return BCrypt.checkpw(contrasena, contrasenaEncriptada);
+        }
+
+        cursor.close();
+        return false;
+    }
+
 
     private void  crearTarjetaPrincipal(int id_usuario){
 
@@ -178,5 +195,47 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         int mes = (int)(Math.random() * 12 + 1);
         int anio = (int)(Math.random() * 6 + 27);
         return String.format("%02d/%02d", mes, anio);
+    }
+
+    public Cursor obtenerDatosUsuario(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT id_usuario, nombre, email, celular, cedula FROM usuarios WHERE email = ?",
+                new String[]{email});
+    }
+
+    public void guardarSesion(int idUsuario, boolean mantenerSesion) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Primero desactivar cualquier sesión previa
+        db.execSQL("UPDATE sesiones SET activa = 0 WHERE id_usuario = " + idUsuario);
+
+        // Crear nueva sesión
+        ContentValues values = new ContentValues();
+        values.put("id_usuario", idUsuario);
+        values.put("activa", 1);
+        db.insert("sesiones", null, values);
+
+        // Si el usuario quiere mantener la sesión
+        if (mantenerSesion) {
+            // Aquí podrías implementar lógica adicional para sesiones persistentes
+        }
+    }
+
+    public int obtenerUsuarioActivo() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT id_usuario FROM sesiones WHERE activa = 1 LIMIT 1", null);
+
+        if (cursor.moveToFirst()) {
+            int idUsuario = cursor.getInt(0);
+            cursor.close();
+            return idUsuario;
+        }
+        cursor.close();
+        return -1; // No hay usuario activo
+    }
+
+    public void cerrarSesion(int idUsuario) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE sesiones SET activa = 0 WHERE id_usuario = " + idUsuario);
     }
 }
