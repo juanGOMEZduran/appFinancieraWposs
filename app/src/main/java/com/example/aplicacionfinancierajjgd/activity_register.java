@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aplicacionfinancierajjgd.dbo.AdminSQLiteOpenHelper;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.activity.EdgeToEdge;
@@ -21,7 +22,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 
-public class activity_register extends AppCompatActivity {
+public class activity_register extends AppCompatActivity  {
 
     private EditText editTextNombreRegister, editTextApellidoRegister, editTextCorreoRegister, editTextNumeroRegister, editTextNumeroCedula, editTextContrasenaRegister, editTextContrasenaRegisterDos ;
 
@@ -173,13 +174,65 @@ public class activity_register extends AppCompatActivity {
 
 // Si no hay errores, limpiar todos los campos
         if(!hayErrores){
-            editTextNombreRegister.setText("");
-            editTextApellidoRegister.setText("");
-            editTextCorreoRegister.setText("");
-            editTextNumeroRegister.setText("");
-            editTextNumeroCedula.setText("");
-            editTextContrasenaRegister.setText("");
-            editTextContrasenaRegisterDos.setText("");
+
+            AdminSQLiteOpenHelper db = new AdminSQLiteOpenHelper(this);
+            boolean noExisteCedula=db.verificarCedula(numeroCedula);
+            boolean noExisteCorreo=db.verificarCorreo(correoRegister);
+
+
+
+            if(noExisteCedula && noExisteCorreo){
+                String nombreApellidoUsuario=String.format("%s %s",nombreRegister, apellidoRegister);
+                boolean exito=db.registrarUsuario(nombreApellidoUsuario, correoRegister, numeroRegister,numeroCedula, contrasena1 );
+                if(exito){
+
+                    Toast.makeText(getApplicationContext(), "¡Te haz registrado correctamente, porfavor incia SESION !", Toast.LENGTH_SHORT).show();
+
+
+                    editTextNombreRegister.setText("");
+                    editTextApellidoRegister.setText("");
+                    editTextCorreoRegister.setText("");
+                    editTextNumeroRegister.setText("");
+                    editTextNumeroCedula.setText("");
+                    editTextContrasenaRegister.setText("");
+                    editTextContrasenaRegisterDos.setText("");
+
+
+                    finish();
+                }else {
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "¡Error a crear el usuario nuevo!", Snackbar.LENGTH_SHORT);
+                    TextView textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+                    textView.setTextColor(Color.WHITE);
+                    snackbar.setBackgroundTint(Color.parseColor("#ff0000"));
+                    snackbar.show();
+                }
+            }else{
+                if(!noExisteCedula){
+                    editTextNumeroCedula.setBackgroundResource(R.drawable.edittext_border_error);
+
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "¡Ya hay un usuario con esa cedula!", Snackbar.LENGTH_SHORT);
+                    TextView textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+                    textView.setTextColor(Color.WHITE);
+                    snackbar.setBackgroundTint(Color.parseColor("#ff0000"));
+                    snackbar.show();
+                }
+                if(!noExisteCorreo){
+                    editTextCorreoRegister.setBackgroundResource(R.drawable.edittext_border_error);
+
+                    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "¡Ya hay un usuario con ese correo!", Snackbar.LENGTH_SHORT);
+                    TextView textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+                    textView.setTextColor(Color.WHITE);
+                    snackbar.setBackgroundTint(Color.parseColor("#ff0000"));
+                    snackbar.show();
+                }
+
+
+
+            }
+
+
+
+
         }
 
     }
