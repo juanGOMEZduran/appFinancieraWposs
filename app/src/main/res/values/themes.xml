@@ -7,5 +7,10 @@
         <item name="colorSecondary">@color/verdePrincipal</item>
     </style>
 
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/verdeSecundario</item>
+        <item name="actionMenuTextColor">@color/verdeSecundario</item>
+    </style>
+
     <style name="Theme.AplicacionFinancieraJJGD" parent="Base.Theme.AplicacionFinancieraJJGD" />
 </resources>

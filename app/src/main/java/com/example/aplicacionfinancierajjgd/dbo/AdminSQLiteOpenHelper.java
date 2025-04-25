@@ -111,6 +111,18 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor consultarTarjetaPrincipal(int id_usuario) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Consulta para obtener la tarjeta principal del usuario
+        String query = "SELECT id_tarjeta, nombre_tarjeta, pan, expiracion, cvv, saldo, principal " +
+                "FROM tarjetas " +
+                "WHERE id_usuario = ? AND principal = 1 " +
+                "LIMIT 1";
+
+        return db.rawQuery(query, new String[]{String.valueOf(id_usuario)});
+    }
+
     public boolean registrarUsuario(String nombre, String correo, String numeroCelular, String numeroCedula, String contrasena ){
 
 

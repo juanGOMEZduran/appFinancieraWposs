@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView textRegister;
     private ImageButton botonVer;
     private EditText editTextContrasena, editTextCorreo;
+
+    private CheckBox recordarContrasena;
 
     private SessionManager session;
     @SuppressLint("MissingInflatedId")
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         botonVer=findViewById(R.id.botonVerContra2);
         editTextContrasena=findViewById(R.id.editTextContrasena);
         editTextCorreo=findViewById(R.id.editTextCorreo);
+        recordarContrasena=findViewById(R.id.recordarContrasena);
 
         textRegister.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
@@ -124,15 +128,17 @@ public class MainActivity extends AppCompatActivity {
 
                 if (cursor.moveToFirst()) {
                     @SuppressLint("Range") int idUsuario = cursor.getInt(cursor.getColumnIndex("id_usuario"));
-
+                    @SuppressLint("Range") String nombre = cursor.getString(cursor.getColumnIndex("nombre"));
                     // Guardar sesión en SharedPreferences
-                    session.createLoginSession(idUsuario, email);
+                    if(recordarContrasena.isChecked()){
+                        session.createLoginSession(idUsuario, email);
+                    }
+
+                    // Redirigir a Home con todos los datos necesarios
+                    redirigirAHome(idUsuario, email, nombre);
 
                     // Guardar sesión en base de datos
                     db.guardarSesion(idUsuario, true);
-
-                    // Redirigir a Home
-                    redirigirAHome();
                 }
                 cursor.close();
             }
@@ -151,7 +157,16 @@ public class MainActivity extends AppCompatActivity {
         return Patterns.EMAIL_ADDRESS.matcher(correo).matches();
     }
 
-    private void redirigirAHome() {
+    private void redirigirAHome(int idUsuario, String email, String nombre) {
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        intent.putExtra("id_usuario", idUsuario);
+        intent.putExtra("nombre", nombre);
+        intent.putExtra("email", email);
+        // ... otros extras que necesites
+        startActivity(intent);
+        finish();
+    }
+    private void redirigirAHome( ) {
         AdminSQLiteOpenHelper db = new AdminSQLiteOpenHelper(this);
         Cursor cursor = db.obtenerDatosUsuario(session.getUserEmail());
 
