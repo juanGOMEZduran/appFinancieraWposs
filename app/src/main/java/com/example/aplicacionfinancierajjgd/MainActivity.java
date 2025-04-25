@@ -60,15 +60,18 @@ public class MainActivity extends AppCompatActivity {
     public void iniciarSesion(View v){
         String email=editTextCorreo.getText().toString().trim();
         String contrasena=editTextContrasena.getText().toString();
+        boolean hayErrores = false;
 
         if(email.isEmpty()){
             editTextCorreo.setBackgroundResource(R.drawable.edittext_border_error);
+            hayErrores=true;
             error();
 
 
         }else{
             if(!esCorreoValido(email)){
                 editTextCorreo.setBackgroundResource(R.drawable.edittext_border_error);
+                hayErrores=true;
 
                 Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "¡Correo invalido!", Snackbar.LENGTH_SHORT);
                 TextView textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
@@ -84,12 +87,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(contrasena.isEmpty()){
+            hayErrores=true;
             editTextContrasena.setBackgroundResource(R.drawable.edittext_border_error);
             error();
 
         }else{
             editTextContrasena.setBackgroundResource(R.drawable.edittext_border);
 
+        }
+
+        if(!hayErrores){
+            
         }
 
     }
