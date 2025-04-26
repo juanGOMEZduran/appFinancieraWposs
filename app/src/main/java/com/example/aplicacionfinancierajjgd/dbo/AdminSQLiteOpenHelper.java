@@ -123,6 +123,15 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         return db.rawQuery(query, new String[]{String.valueOf(id_usuario)});
     }
 
+    public Cursor consultarDatosPerfil(int id_usuario) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Consulta para obtener la tarjeta principal del usuario
+        String query = "SELECT nombre, email, celular, cedula FROM usuarios WHERE id_usuario=?";
+
+        return db.rawQuery(query, new String[]{String.valueOf(id_usuario)});
+    }
+
     public boolean registrarUsuario(String nombre, String correo, String numeroCelular, String numeroCedula, String contrasena ){
 
 

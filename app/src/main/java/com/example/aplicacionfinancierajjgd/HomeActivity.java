@@ -8,9 +8,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -18,12 +20,17 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.aplicacionfinancierajjgd.dbo.AdminSQLiteOpenHelper;
 import com.example.aplicacionfinancierajjgd.utils.SessionManager;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarMenu;
+import com.google.android.material.navigation.NavigationBarMenuView;
 
 public class HomeActivity extends AppCompatActivity {
     private SessionManager session;
     private AdminSQLiteOpenHelper dbHelper;
-
+    private BottomNavigationView navegarHome;
     private TextView nombretargeta, panTarjeta, fechaExpi, cvvTarjeta, montoTarjeta;
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,10 @@ public class HomeActivity extends AppCompatActivity {
         fechaExpi=findViewById(R.id.fechaExpi);
         cvvTarjeta=findViewById(R.id.cvvTarjeta);
         montoTarjeta=findViewById(R.id.montoTarjeta);
+        navegarHome=findViewById(R.id.navegarHome);
+
+
+
 
 
 
@@ -60,9 +71,7 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int idUsuario = intent.getIntExtra("id_usuario", 0);
         String nombre = intent.getStringExtra("nombre");
-        String email = intent.getStringExtra("email");
-        String celular = intent.getStringExtra("celular");
-        String cedula = intent.getStringExtra("cedula");
+
 
 
         if (getSupportActionBar() != null) {
@@ -95,7 +104,36 @@ public class HomeActivity extends AppCompatActivity {
         } else {
 
         }
-    }
+
+
+        navegarHome.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+
+                if (id == R.id.itemHome) {
+
+                    return true;
+                } else if (id == R.id.itemTransacciones) {
+
+
+                    return true;
+                } else if (id == R.id.itemperfil) {
+                    //Toast.makeText(getApplicationContext(), "¡Ir al perfil!", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(HomeActivity.this, PerfilUser.class);
+                    intent.putExtra("idUsuario", idUsuario);
+                    startActivity(intent);
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
+
+
+
+}
 
     private String formatearNumeroTarjeta(String pan) {
         if (pan == null || pan.length() != 16) {
@@ -116,17 +154,26 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menubienvenida, menu);
+
         return true;
     }
+
+
+
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.menu_salir){
-            ;
+
             logout();
             return  true;
         }
+
+
         return super.onOptionsItemSelected(item);
     }
 
