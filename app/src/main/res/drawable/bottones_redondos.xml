@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/rounded_corners_button.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/verdeSecundario" />
+    <corners android:radius="50dp" /> <!-- Ajusta este valor para más/menos redondeo -->
+</shape>

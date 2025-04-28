@@ -2,16 +2,21 @@ package com.example.aplicacionfinancierajjgd;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.aplicacionfinancierajjgd.dbo.AdminSQLiteOpenHelper;
+import com.example.aplicacionfinancierajjgd.utils.SessionManager;
 import com.google.android.material.snackbar.Snackbar;
 import android.util.Patterns;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView textRegister;
     private ImageButton botonVer;
     private EditText editTextContrasena, editTextCorreo;
+
+    private CheckBox recordarContrasena;
+
+    private SessionManager session;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +36,21 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        // INICIALIZA SessionManager aquí (esto es lo que faltaba)
+        session = new SessionManager(this);
+
+        // Verificar si ya está logueado
+        if (session.isLoggedIn()) {
+            redirigirAHome();
+            return;
+        }
+
+
         textRegister=findViewById(R.id.textRegister);
         botonVer=findViewById(R.id.botonVerContra2);
         editTextContrasena=findViewById(R.id.editTextContrasena);
         editTextCorreo=findViewById(R.id.editTextCorreo);
+        recordarContrasena=findViewById(R.id.recordarContrasena);
 
         textRegister.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
@@ -58,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void iniciarSesion(View v){
-        String email=editTextCorreo.getText().toString().trim();
+        String email=editTextCorreo.getText().toString();
         String contrasena=editTextContrasena.getText().toString();
         boolean hayErrores = false;
 
@@ -96,14 +116,73 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        if(!hayErrores){
-            
+        if (!hayErrores) {
+            AdminSQLiteOpenHelper db = new AdminSQLiteOpenHelper(this);
+
+            // Verificar credenciales con BCrypt
+
+            boolean credencialesCorrectas = db.verificarCredenciales(email, contrasena);
+
+            if (credencialesCorrectas) {
+                Cursor cursor = db.obtenerDatosUsuario(email);
+
+                if (cursor.moveToFirst()) {
+                    @SuppressLint("Range") int idUsuario = cursor.getInt(cursor.getColumnIndex("id_usuario"));
+                    @SuppressLint("Range") String nombre = cursor.getString(cursor.getColumnIndex("nombre"));
+                    // Guardar sesión en SharedPreferences
+                    if(recordarContrasena.isChecked()){
+                        session.createLoginSession(idUsuario, email);
+                    }
+
+                    // Redirigir a Home con todos los datos necesarios
+                    redirigirAHome(idUsuario, email, nombre);
+
+                    // Guardar sesión en base de datos
+                    db.guardarSesion(idUsuario, true);
+                }
+                cursor.close();
+            }
+            else {
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "¡Correo o contraseña incorrectos!", Snackbar.LENGTH_SHORT);
+                TextView textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
+                snackbar.setBackgroundTint(Color.parseColor("#ff0000"));
+                snackbar.show();
+            }
         }
 
     }
 
     public boolean esCorreoValido(String correo) {
         return Patterns.EMAIL_ADDRESS.matcher(correo).matches();
+    }
+
+    private void redirigirAHome(int idUsuario, String email, String nombre) {
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        intent.putExtra("id_usuario", idUsuario);
+        intent.putExtra("nombre", nombre);
+        intent.putExtra("email", email);
+        // ... otros extras que necesites
+        startActivity(intent);
+        finish();
+    }
+    private void redirigirAHome( ) {
+        AdminSQLiteOpenHelper db = new AdminSQLiteOpenHelper(this);
+        Cursor cursor = db.obtenerDatosUsuario(session.getUserEmail());
+
+        if (cursor.moveToFirst()) {
+            @SuppressLint("Range") int idUsuario = cursor.getInt(cursor.getColumnIndex("id_usuario"));
+            @SuppressLint("Range") String nombre = cursor.getString(cursor.getColumnIndex("nombre"));
+            // ... obtener otros datos
+
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            intent.putExtra("id_usuario", idUsuario);
+            intent.putExtra("nombre", nombre);
+            // ... otros extras
+            startActivity(intent);
+            finish();
+        }
+        cursor.close();
     }
 
     public void  error(){

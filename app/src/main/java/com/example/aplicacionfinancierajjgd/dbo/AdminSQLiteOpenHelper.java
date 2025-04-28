@@ -5,11 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Color;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.example.aplicacionfinancierajjgd.utils.Tarjeta;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -111,6 +111,27 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor consultarTarjetaPrincipal(int id_usuario) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Consulta para obtener la tarjeta principal del usuario
+        String query = "SELECT id_tarjeta, nombre_tarjeta, pan, expiracion, cvv, saldo, principal " +
+                "FROM tarjetas " +
+                "WHERE id_usuario = ? AND principal = 1 " +
+                "LIMIT 1";
+
+        return db.rawQuery(query, new String[]{String.valueOf(id_usuario)});
+    }
+
+    public Cursor consultarDatosPerfil(int id_usuario) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Consulta para obtener la tarjeta principal del usuario
+        String query = "SELECT nombre, email, celular, cedula FROM usuarios WHERE id_usuario=?";
+
+        return db.rawQuery(query, new String[]{String.valueOf(id_usuario)});
+    }
+
     public boolean registrarUsuario(String nombre, String correo, String numeroCelular, String numeroCedula, String contrasena ){
 
 
@@ -141,6 +162,23 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
 
         return true;
+    }
+
+    public boolean verificarCredenciales(String cedulaOCorreo, String contrasena) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Buscar usuario por correo (o cédula si prefieres)
+        Cursor cursor = db.rawQuery("SELECT contrasena FROM usuarios WHERE email = ?",
+                new String[]{cedulaOCorreo});
+
+        if(cursor.moveToFirst()) {
+            String contrasenaEncriptada = cursor.getString(0);
+            cursor.close();
+            return BCrypt.checkpw(contrasena, contrasenaEncriptada);
+        }
+
+        cursor.close();
+        return false;
     }
 
 
@@ -179,4 +217,79 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         int anio = (int)(Math.random() * 6 + 27);
         return String.format("%02d/%02d", mes, anio);
     }
+
+    public Cursor obtenerDatosUsuario(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT id_usuario, nombre, email, celular, cedula FROM usuarios WHERE email = ?",
+                new String[]{email});
+    }
+
+    public void guardarSesion(int idUsuario, boolean mantenerSesion) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Primero desactivar cualquier sesión previa
+        db.execSQL("UPDATE sesiones SET activa = 0 WHERE id_usuario = " + idUsuario);
+
+        // Crear nueva sesión
+        ContentValues values = new ContentValues();
+        values.put("id_usuario", idUsuario);
+        values.put("activa", 1);
+        db.insert("sesiones", null, values);
+
+        // Si el usuario quiere mantener la sesión
+        if (mantenerSesion) {
+            // Aquí podrías implementar lógica adicional para sesiones persistentes
+        }
+    }
+
+    public int obtenerUsuarioActivo() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT id_usuario FROM sesiones WHERE activa = 1 LIMIT 1", null);
+
+        if (cursor.moveToFirst()) {
+            int idUsuario = cursor.getInt(0);
+            cursor.close();
+            return idUsuario;
+        }
+        cursor.close();
+        return -1; // No hay usuario activo
+    }
+
+
+    public List<Tarjeta> obtenerTodasLasTarjetasPorUsuario(int id_usuario) {
+        List<Tarjeta> listaTarjetas = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT id_tarjeta, id_usuario, nombre_tarjeta, pan, " +
+                "expiracion, cvv, saldo, principal " +
+                "FROM tarjetas " +
+                "WHERE id_usuario = ? " +
+                "ORDER BY principal DESC";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id_usuario)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                Tarjeta tarjeta = new Tarjeta(
+                        cursor.getInt(0),    // id_tarjeta
+                        cursor.getInt(1),    // id_usuario
+                        cursor.getString(2), // nombre_tarjeta
+                        cursor.getString(3), // pan
+                        cursor.getString(4), // expiracion
+                        cursor.getString(5), // cvv
+                        cursor.getDouble(6), // saldo
+                        cursor.getInt(7) == 1 // principal (1=true, 0=false)
+                );
+                listaTarjetas.add(tarjeta);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return listaTarjetas;
+    }
+    public void cerrarSesion(int idUsuario) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE sesiones SET activa = 0 WHERE id_usuario = " + idUsuario);
+    }
+
 }
