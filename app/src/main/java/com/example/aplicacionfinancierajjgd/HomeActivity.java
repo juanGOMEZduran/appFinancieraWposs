@@ -166,9 +166,16 @@ public class HomeActivity extends AppCompatActivity {
 
         // Crea el listener
         TarjetaAdapter.OnItemClickListener listener = tarjeta -> {
+            int panTarjeta=tarjeta.getIdTarjeta();
             Toast.makeText(HomeActivity.this,
-                    "Seleccionaste: " + tarjeta.getNombreTarjeta(),
+                    "TU SELECCIÓN ES: " + tarjeta.getNombreTarjeta(),
                     Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(HomeActivity.this, VerTarjetaSeleccionada.class);
+            intent.putExtra("idtargeta", panTarjeta);
+            startActivity(intent);
+
+
         };
 
         // Usa el constructor correcto con ambos parámetros
