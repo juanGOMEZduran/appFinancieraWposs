@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -32,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
     private AdminSQLiteOpenHelper dbHelper;
     private BottomNavigationView navegarHome;
     private TextView nombretargeta, panTarjeta, fechaExpi, cvvTarjeta, montoTarjeta;
-
+    int idUsuario;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -72,16 +74,24 @@ public class HomeActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        int idUsuario = intent.getIntExtra("id_usuario", 0);
+         idUsuario = intent.getIntExtra("id_usuario", 0);
         String nombre = intent.getStringExtra("nombre");
 
         List<Tarjeta> tarjetas = dbHelper.obtenerTodasLasTarjetasPorUsuario(idUsuario);
 
 
-        // Configurar RecyclerView
         RecyclerView recyclerView = findViewById(R.id.lista_tarjetas);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        TarjetaAdapter adapter = new TarjetaAdapter(tarjetas);
+
+
+        TarjetaAdapter adapter = new TarjetaAdapter(tarjetas, tarjeta -> {
+
+            Toast.makeText(getApplicationContext(), "¡Seleccionaste una tarjeta !", Toast.LENGTH_SHORT).show();
+
+
+
+        });
+
         recyclerView.setAdapter(adapter);
 
 
@@ -143,11 +153,28 @@ public class HomeActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        // Recargar tarjetas actualizadas
+        List<Tarjeta> tarjetasActualizadas = dbHelper.obtenerTodasLasTarjetasPorUsuario(idUsuario);
 
+        RecyclerView recyclerView = findViewById(R.id.lista_tarjetas);
 
-}
+        // Crea el listener
+        TarjetaAdapter.OnItemClickListener listener = tarjeta -> {
+            Toast.makeText(HomeActivity.this,
+                    "Seleccionaste: " + tarjeta.getNombreTarjeta(),
+                    Toast.LENGTH_SHORT).show();
+        };
+
+        // Usa el constructor correcto con ambos parámetros
+        TarjetaAdapter adapter = new TarjetaAdapter(tarjetasActualizadas, listener);
+        recyclerView.setAdapter(adapter);
+    }
 
     private String formatearNumeroTarjeta(String pan) {
         if (pan == null || pan.length() != 16) {
@@ -201,6 +228,13 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void irAgregarTarjeta(View view) {  // ¡Añade el parámetro View!
+        Intent intent = new Intent(HomeActivity.this, AgregarTarjeta.class);
+        intent.putExtra("idUsuario", idUsuario);
+        startActivity(intent);
+    }
+
 
 
 

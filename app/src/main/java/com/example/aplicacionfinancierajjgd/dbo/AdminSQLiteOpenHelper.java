@@ -203,13 +203,47 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    private String generarNumeroTarjeta(){
+    public void crearTarjetaNueva(int id_usuario, String nombreTarjeta){
+        String pan=generarNumeroTarjeta();
+        String cvv=String.valueOf((int) (Math.random()*900+100));
+        String expiracion=generarExpiracion();
+
+        ContentValues tarjeta= new ContentValues();
+        tarjeta.put("id_usuario", id_usuario);
+        tarjeta.put("nombre_tarjeta", nombreTarjeta);
+        tarjeta.put("pan", pan);
+        tarjeta.put("expiracion", expiracion);
+        tarjeta.put("cvv", cvv);
+        tarjeta.put("saldo", 1000000);
+        tarjeta.put("principal", 0);
+
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.insert("tarjetas", null, tarjeta);
+    }
+
+    private String generarNumeroTarjeta() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String pan;
+        boolean existe;
         Random rand = new Random();
-        StringBuilder numero = new StringBuilder();
-        for (int i = 0; i < 16; i++) {
-            numero.append(rand.nextInt(10));
-        }
-        return numero.toString();
+
+        do {
+            // Generar nuevo número
+            StringBuilder numero = new StringBuilder();
+            for (int i = 0; i < 16; i++) {
+                numero.append(rand.nextInt(10));
+            }
+            pan = numero.toString();
+
+            // Verificar si ya existe en la base de datos
+            Cursor cursor = db.rawQuery("SELECT pan FROM tarjetas WHERE pan = ?",
+                    new String[]{pan});
+            existe = cursor.getCount() > 0;
+            cursor.close();
+
+        } while (existe); // Repetir mientras el número exista
+
+        return pan;
     }
 
     private String generarExpiracion() {

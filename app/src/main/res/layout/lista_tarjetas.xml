@@ -43,13 +43,14 @@
             android:id="@+id/cvvTarjetas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="2dp"
             android:fontFamily="@font/ar_one_sans_medium"
             android:text="TextView"
+            android:textAlignment="viewEnd"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/fechasExpis"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.945"
+            app:layout_constraintHorizontal_bias="0.89"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
@@ -63,7 +64,7 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/panTarjetas"
             app:layout_constraintEnd_toEndOf="@+id/cvvTarjetas"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.89"
             app:layout_constraintStart_toStartOf="@+id/cvvTarjetas"
             tools:ignore="MissingConstraints" />
 

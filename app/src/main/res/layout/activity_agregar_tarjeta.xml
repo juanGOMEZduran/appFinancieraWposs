@@ -5,6 +5,162 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/verdeTerciario"
     tools:context=".AgregarTarjeta">
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/ar_one_sans_medium"
+        android:text="Crea una nueva tarjeta"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout4"
+        android:layout_width="338dp"
+        android:layout_height="241dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounden_frame_para_cuatro_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+        <EditText
+            android:id="@+id/editTextNombreTarjeta"
+            android:layout_width="213dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="64dp"
+            android:background="@drawable/edittext_border"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="Nombre de tarjeta"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="crearTargeta"
+            android:text="Crear nueva tarjeta"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNombreTarjeta" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="352dp"
+        android:layout_height="401dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounden_frame_para_cuatro_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout4">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:text="¿Cómo crear una nueva tarjeta?"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="262dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:text="1. Escribe el nombre de tu tarjeta."
+            android:textAlignment="viewStart"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="268dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:text="2. Se generarán automáticamente los datos esenciales de la tarjeta: número (PAN), fecha de expiración y código CVV."
+            android:textAlignment="viewStart"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="268dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:text="3. Solo necesitas asignarle un nombre a tu nueva tarjeta (por ejemplo: “Ahorros”, “Compras”, “Viajes”)."
+            android:textAlignment="viewStart"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.511"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="265dp"
+            android:layout_height="41dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:text="4. Cada nueva tarjeta creada tendrá un saldo inicial de $1.000.000."
+            android:textAlignment="viewStart"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="264dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:text="5. ¡Listo! Tu tarjeta aparecerá en el listado y estará lista para usar en transferencias."
+            android:textAlignment="viewStart"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.517"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView22" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="108dp"
+        android:layout_height="91dp"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.943"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+        app:srcCompat="@mipmap/inst" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

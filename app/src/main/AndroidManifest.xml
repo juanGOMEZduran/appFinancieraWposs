@@ -13,10 +13,11 @@
         android:theme="@style/Theme.AplicacionFinancieraJJGD"
         tools:targetApi="31">
         <activity
-            android:name=".PerfilUser"
+            android:name=".AgregarTarjeta"
             android:exported="false" />
+
         <activity
-            android:name=".activity_perfil_user"
+            android:name=".PerfilUser"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
