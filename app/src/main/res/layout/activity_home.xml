@@ -12,7 +12,7 @@
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:fontFamily="@font/ar_one_sans_medium"
         android:text="Bienvenido a la aplicación finaciera: "
         android:textColor="@color/black"
@@ -23,9 +23,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
-        android:layout_width="356dp"
-        android:layout_height="217dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="360dp"
+        android:layout_height="222dp"
+        android:layout_marginTop="4dp"
         android:background="@mipmap/tarjeta2t"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,22 +104,23 @@
         android:id="@+id/button3"
         android:layout_width="126dp"
         android:layout_height="53dp"
+        android:layout_marginTop="2dp"
         android:backgroundTint="@color/verdeSecundario"
         android:text="Enviar plata"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
-        app:layout_constraintHorizontal_bias="0.935"
+        app:layout_constraintHorizontal_bias="0.928"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="381dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="365dp"
+        android:layout_height="360dp"
+        android:layout_marginTop="2dp"
         android:background="@drawable/rounden_frame_para_arriba"
-        app:layout_constraintBottom_toTopOf="@+id/navegarHome"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3">
 
@@ -153,29 +154,37 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lista_tarjetas"
-            android:layout_width="392dp"
-            android:layout_height="301dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageButton3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navegarHome"
-        android:layout_width="425dp"
-        android:layout_height="80dp"
-        android:background="@color/verdeTerciario"
-        app:itemIconTint="@color/verdeSecundario"
-        app:itemTextColor="@color/verdeSecundario"
+    <FrameLayout
+        android:id="@+id/frameLayout5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#FF1744"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menuopcioneshome">
+        app:layout_constraintStart_toStartOf="parent">
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navegarHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/verdeTerciario"
+            app:itemIconTint="@color/verdeSecundario"
+            app:itemTextColor="@color/verdeSecundario"
+            app:menu="@menu/menuopcioneshome">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

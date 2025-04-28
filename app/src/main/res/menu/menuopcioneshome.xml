@@ -5,16 +5,16 @@
     <item
         android:id="@+id/itemHome"
         android:icon="@drawable/icon_home"
-        android:title="Home"
+        android:title="INICIO"
         app:showAsAction="always" />
     <item
         android:id="@+id/itemTransacciones"
         android:icon="@drawable/icon_historial_transaccion"
-        android:title="Historial Transacciones"
+        android:title="HISTORIAL"
         app:showAsAction="always" />
     <item
         android:id="@+id/itemperfil"
         android:icon="@drawable/icon_cedula"
-        android:title="Perfil"
+        android:title="PERFIL"
         app:showAsAction="always" />
 </menu>

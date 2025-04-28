@@ -45,7 +45,12 @@ public class HomeActivity extends AppCompatActivity {
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
+
+            // Asegúrate de que el BottomNavigationView respete los insets inferiores
+            View navView = findViewById(R.id.navegarHome);
+            navView.setPadding(0, 0, 0, systemBars.bottom);
+
             return insets;
         });
 
@@ -173,6 +178,12 @@ public class HomeActivity extends AppCompatActivity {
 
             Intent intent = new Intent(HomeActivity.this, VerTarjetaSeleccionada.class);
             intent.putExtra("idtargeta", panTarjeta);
+            intent.putExtra("pan_tarjeta",tarjeta.getPan());
+            intent.putExtra("nombre_tarjeta", tarjeta.getNombreTarjeta());
+            intent.putExtra("monto_tarjeta", tarjeta.getSaldo());
+            intent.putExtra("cvv_tarjeta",tarjeta.getCvv());
+            intent.putExtra("expiracion_tarjeta", tarjeta.getExpiracion());
+
             startActivity(intent);
 
 
