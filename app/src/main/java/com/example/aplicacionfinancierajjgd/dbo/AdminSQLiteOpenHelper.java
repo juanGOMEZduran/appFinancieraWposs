@@ -59,6 +59,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
                 "    tarjeta_origen INTEGER NOT NULL,\n" +
                 "    tarjeta_destino INTEGER NOT NULL,\n" +
                 "    monto REAL NOT NULL,\n" +
+                "    descripcion_mesage TEXT NOT NULL,\n" +
                 "    fecha TEXT DEFAULT CURRENT_TIMESTAMP,\n" +
                 "    FOREIGN KEY (tarjeta_origen) REFERENCES tarjetas(id_tarjeta),\n" +
                 "    FOREIGN KEY (tarjeta_destino) REFERENCES tarjetas(id_tarjeta)\n" +
@@ -321,6 +322,25 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         cursor.close();
         return listaTarjetas;
     }
+
+    public boolean existeTarjetaConPAN(String pan) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        boolean existe = false;
+
+        try {
+            cursor = db.rawQuery("SELECT id_tarjeta FROM tarjetas WHERE pan = ?",
+                    new String[]{pan});
+            existe = cursor.getCount() > 0;
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return existe;
+    }
+
     public void cerrarSesion(int idUsuario) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE sesiones SET activa = 0 WHERE id_usuario = " + idUsuario);

@@ -8,4 +8,93 @@
     android:background="@color/verdeTerciario"
     tools:context=".EnviarPlata">
 
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/ar_one_sans_medium"
+        android:text="Enviar Plata a otro usuario"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="375dp"
+        android:layout_height="432dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounden_frame_para_cuatro_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView24">
+
+        <Spinner
+            android:id="@+id/spinnerSeleccionTarjeta"
+            android:layout_width="300dp"
+            android:layout_height="67dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextPanDestino"
+            android:layout_width="300dp"
+            android:layout_height="67dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/edittext_border"
+            android:ems="10"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:hint="Escribe el pan de destino"
+            android:inputType="number"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerSeleccionTarjeta" />
+
+        <EditText
+            android:id="@+id/editTextMensajeTransferencia"
+            android:layout_width="300dp"
+            android:layout_height="67dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/edittext_border"
+            android:ems="10"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:hint="Escribe un mensaje"
+            android:inputType="text"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPanDestino" />
+
+        <EditText
+            android:id="@+id/editTextmontoEnviar"
+            android:layout_width="300dp"
+            android:layout_height="67dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/edittext_border"
+            android:ems="10"
+            android:hint="Escribe el monto"
+            android:fontFamily="@font/ar_one_sans_medium"
+            android:inputType="numberDecimal"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextMensajeTransferencia" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:onClick="RealizarEnvio"
+            android:text="Enviar Plata!"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextmontoEnviar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
