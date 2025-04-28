@@ -13,9 +13,20 @@ public class TarjetaAdapter extends RecyclerView.Adapter<TarjetaAdapter.TarjetaV
 
     private List<Tarjeta> tarjetas;
 
-    public TarjetaAdapter(List<Tarjeta> tarjetas) {
-        this.tarjetas = tarjetas;
+
+
+
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(Tarjeta tarjeta);
     }
+
+    public TarjetaAdapter(List<Tarjeta> tarjetas, OnItemClickListener listener) {
+        this.tarjetas = tarjetas;
+        this.listener = listener;
+    }
+
 
     @NonNull
     @Override
@@ -39,6 +50,13 @@ public class TarjetaAdapter extends RecyclerView.Adapter<TarjetaAdapter.TarjetaV
         holder.fechaExpiracion.setText("Exp: " + tarjeta.getExpiracion());
         holder.cvvTarjeta.setText("CVV: " + tarjeta.getCvv());
         holder.saldoTarjeta.setText(montoString );
+
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(tarjeta);
+            }
+        });
     }
 
     @Override
