@@ -13,6 +13,9 @@
         android:theme="@style/Theme.AplicacionFinancieraJJGD"
         tools:targetApi="31">
         <activity
+            android:name=".EnviarPlata"
+            android:exported="false" />
+        <activity
             android:name=".VerTarjetaSeleccionada"
             android:exported="false" />
         <activity
