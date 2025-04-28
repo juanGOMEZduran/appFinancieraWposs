@@ -4,12 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -17,12 +15,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aplicacionfinancierajjgd.dbo.AdminSQLiteOpenHelper;
 import com.example.aplicacionfinancierajjgd.utils.SessionManager;
+import com.example.aplicacionfinancierajjgd.utils.Tarjeta;
+import com.example.aplicacionfinancierajjgd.utils.TarjetaAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarMenu;
-import com.google.android.material.navigation.NavigationBarMenuView;
+
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
     private SessionManager session;
@@ -46,11 +49,11 @@ public class HomeActivity extends AppCompatActivity {
 
         dbHelper = new AdminSQLiteOpenHelper(this);
         session = new SessionManager(this);
-        nombretargeta=findViewById(R.id.nombretargeta);
-        panTarjeta=findViewById(R.id.panTarjeta);
-        fechaExpi=findViewById(R.id.fechaExpi);
-        cvvTarjeta=findViewById(R.id.cvvTarjeta);
-        montoTarjeta=findViewById(R.id.montoTarjeta);
+        nombretargeta=findViewById(R.id.nombretargetas);
+        panTarjeta=findViewById(R.id.panTarjetas);
+        fechaExpi=findViewById(R.id.fechasExpis);
+        cvvTarjeta=findViewById(R.id.cvvTarjetas);
+        montoTarjeta=findViewById(R.id.montoTarjetas);
         navegarHome=findViewById(R.id.navegarHome);
 
 
@@ -71,6 +74,17 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int idUsuario = intent.getIntExtra("id_usuario", 0);
         String nombre = intent.getStringExtra("nombre");
+
+        List<Tarjeta> tarjetas = dbHelper.obtenerTodasLasTarjetasPorUsuario(idUsuario);
+
+
+        // Configurar RecyclerView
+        RecyclerView recyclerView = findViewById(R.id.lista_tarjetas);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        TarjetaAdapter adapter = new TarjetaAdapter(tarjetas);
+        recyclerView.setAdapter(adapter);
+
+
 
 
 

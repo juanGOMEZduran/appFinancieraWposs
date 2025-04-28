@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView9">
 
         <TextView
-            android:id="@+id/nombretargeta"
+            android:id="@+id/nombretargetas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -44,7 +44,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/panTarjeta"
+            android:id="@+id/panTarjetas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="124dp"
@@ -54,11 +54,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nombretargeta"
+            app:layout_constraintTop_toBottomOf="@+id/nombretargetas"
             app:layout_constraintVertical_bias="0.25" />
 
         <TextView
-            android:id="@+id/fechaExpi"
+            android:id="@+id/fechasExpis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -66,36 +66,36 @@
             android:text="TextView"
             android:textAlignment="viewEnd"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/panTarjeta"
+            app:layout_constraintBottom_toTopOf="@+id/panTarjetas"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.894"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/cvvTarjeta"
+            android:id="@+id/cvvTarjetas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
             android:fontFamily="@font/ar_one_sans_medium"
             android:text="TextView"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/fechaExpi"
+            app:layout_constraintBottom_toTopOf="@+id/fechasExpis"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.89"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/montoTarjeta"
+            android:id="@+id/montoTarjetas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ar_one_sans_medium"
             android:text="TextView"
             android:textSize="28sp"
-            app:layout_constraintBottom_toTopOf="@+id/cvvTarjeta"
+            app:layout_constraintBottom_toTopOf="@+id/cvvTarjetas"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.867"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nombretargeta"
+            app:layout_constraintTop_toBottomOf="@+id/nombretargetas"
             app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -149,6 +149,15 @@
             app:layout_constraintStart_toEndOf="@+id/textView7"
             app:layout_constraintTop_toTopOf="@+id/textView7"
             app:srcCompat="@drawable/icon_agregar_tarjeta" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lista_tarjetas"
+            android:layout_width="392dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

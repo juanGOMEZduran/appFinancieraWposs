@@ -5,11 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Color;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.example.aplicacionfinancierajjgd.utils.Tarjeta;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -255,8 +255,41 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         return -1; // No hay usuario activo
     }
 
+
+    public List<Tarjeta> obtenerTodasLasTarjetasPorUsuario(int id_usuario) {
+        List<Tarjeta> listaTarjetas = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT id_tarjeta, id_usuario, nombre_tarjeta, pan, " +
+                "expiracion, cvv, saldo, principal " +
+                "FROM tarjetas " +
+                "WHERE id_usuario = ? " +
+                "ORDER BY principal DESC";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id_usuario)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                Tarjeta tarjeta = new Tarjeta(
+                        cursor.getInt(0),    // id_tarjeta
+                        cursor.getInt(1),    // id_usuario
+                        cursor.getString(2), // nombre_tarjeta
+                        cursor.getString(3), // pan
+                        cursor.getString(4), // expiracion
+                        cursor.getString(5), // cvv
+                        cursor.getDouble(6), // saldo
+                        cursor.getInt(7) == 1 // principal (1=true, 0=false)
+                );
+                listaTarjetas.add(tarjeta);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return listaTarjetas;
+    }
     public void cerrarSesion(int idUsuario) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE sesiones SET activa = 0 WHERE id_usuario = " + idUsuario);
     }
+
 }
