@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.aplicacionfinancierajjgd.utils.Tarjeta;
+import com.example.aplicacionfinancierajjgd.utils.Transferencia;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -413,6 +414,55 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         } finally {
             db.endTransaction();
         }
+    }
+
+    public List<Transferencia> obtenerTransferenciasPorUsuario(int idUsuario) {
+        List<Transferencia> transferencias = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Consulta para obtener todas las transferencias donde el usuario es origen o destino
+        String query = "SELECT t.id_transferencia, " +
+                "tor.pan AS pan_origen, tdes.pan AS pan_destino, " +
+                "t.monto, t.descripcion_mesage, t.fecha " +
+                "FROM transferencias t " +
+                "JOIN tarjetas tor ON t.tarjeta_origen = tor.id_tarjeta " +
+                "JOIN tarjetas tdes ON t.tarjeta_destino = tdes.id_tarjeta " +
+                "WHERE tor.id_usuario = ? OR tdes.id_usuario = ? " +
+                "ORDER BY t.fecha DESC";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(idUsuario), String.valueOf(idUsuario)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                Transferencia transferencia = new Transferencia(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getDouble(3),
+                        cursor.getString(4),
+                        cursor.getString(5)
+                );
+                transferencias.add(transferencia);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return transferencias;
+    }
+
+    public Cursor obtenerTransferenciasPorUsuarioCursor(int idUsuario) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT t.id_transferencia, " +
+                "tor.pan AS pan_origen, tdes.pan AS pan_destino, " +
+                "t.monto, t.descripcion_mesage, t.fecha " +
+                "FROM transferencias t " +
+                "JOIN tarjetas tor ON t.tarjeta_origen = tor.id_tarjeta " +
+                "JOIN tarjetas tdes ON t.tarjeta_destino = tdes.id_tarjeta " +
+                "WHERE tor.id_usuario = ? OR tdes.id_usuario = ? " +
+                "ORDER BY t.fecha DESC";
+
+        return db.rawQuery(query, new String[]{String.valueOf(idUsuario), String.valueOf(idUsuario)});
     }
 
     public void cerrarSesion(int idUsuario) {

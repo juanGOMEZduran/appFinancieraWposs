@@ -27,7 +27,7 @@
         android:id="@+id/constraintLayout5"
         android:layout_width="380dp"
         android:layout_height="222dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="36dp"
         android:background="@mipmap/tarjeta2t"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,5 +100,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/imageButton7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:background="@color/verdeTerciario"
+        android:onClick="volver"
+        app:layout_constraintBottom_toBottomOf="@+id/nombreTarjetaSelec"
+        app:layout_constraintEnd_toStartOf="@+id/nombreTarjetaSelec"
+        app:layout_constraintTop_toTopOf="@+id/nombreTarjetaSelec"
+        app:srcCompat="@drawable/flecha_atras" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

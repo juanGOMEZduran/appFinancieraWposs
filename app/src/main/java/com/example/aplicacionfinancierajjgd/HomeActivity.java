@@ -141,12 +141,14 @@ public class HomeActivity extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if (id == R.id.itemHome) {
-
+                    Toast.makeText(getApplicationContext(), "¡Estás en el inicio!", Toast.LENGTH_SHORT).show();
                     return true;
                 } else if (id == R.id.itemTransacciones) {
-
-
+                    Intent intent=new Intent(HomeActivity.this, HistorialTranferencias.class);
+                    intent.putExtra("idUsuario", idUsuario);
+                    startActivity(intent);
                     return true;
+
                 } else if (id == R.id.itemperfil) {
                     //Toast.makeText(getApplicationContext(), "¡Ir al perfil!", Toast.LENGTH_SHORT).show();
                     Intent intent=new Intent(HomeActivity.this, PerfilUser.class);
@@ -164,6 +166,29 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+
+        Cursor cursor = dbHelper.consultarTarjetaPrincipal(idUsuario);
+        if (cursor != null && cursor.moveToFirst()) {
+
+            String nombreTarjeta = cursor.getString(1);
+            String pan = cursor.getString(2);
+            String panFormateado = formatearNumeroTarjeta(pan);
+            String expiracion = cursor.getString(3);
+            String cvv = cursor.getString(4);
+            double saldo = cursor.getDouble(5);
+            int principal = cursor.getInt(6);
+
+            nombretargeta.setText(nombreTarjeta);
+            panTarjeta.setText(panFormateado);
+            fechaExpi.setText("Exp: "+expiracion);
+            cvvTarjeta.setText("Cvv: "+cvv);
+            montoTarjeta.setText(String.valueOf(saldo));
+
+
+            cursor.close();
+        } else {
+
+        }
         // Recargar tarjetas actualizadas
         List<Tarjeta> tarjetasActualizadas = dbHelper.obtenerTodasLasTarjetasPorUsuario(idUsuario);
 

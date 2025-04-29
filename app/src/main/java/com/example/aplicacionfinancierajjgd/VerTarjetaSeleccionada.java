@@ -1,6 +1,7 @@
 package com.example.aplicacionfinancierajjgd;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -52,5 +53,9 @@ public class VerTarjetaSeleccionada extends AppCompatActivity {
         }
         return pan.substring(0, 4) + " " + pan.substring(4, 8) + " " +
                 pan.substring(8, 12) + " " + pan.substring(12);
+    }
+
+    public void volver(View v){
+        finish();
     }
 }
