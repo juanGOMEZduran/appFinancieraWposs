@@ -2,6 +2,7 @@ package com.example.aplicacionfinancierajjgd;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,5 +64,9 @@ public class PerfilUser extends AppCompatActivity {
 
        // Toast.makeText(getApplicationContext(), "el usuario es: "+idUsuario+".", Toast.LENGTH_SHORT).show();
 
+    }
+
+    public void volver(View v){
+        finish();
     }
 }

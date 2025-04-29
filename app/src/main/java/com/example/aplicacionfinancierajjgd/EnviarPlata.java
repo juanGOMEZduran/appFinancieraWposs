@@ -27,9 +27,15 @@ import java.util.List;
 
 public class EnviarPlata extends AppCompatActivity {
     private AdminSQLiteOpenHelper dbHelper;
+
+   private Snackbar snackbar;
+    private TextView textView;
+
+    private TextView montoActualTarjeta;
     private EditText editTextPanDestino, editTextMensajeTransferencia, editTextmontoEnviar;
     private Spinner spinnerSeleccionTarjeta;
     String panOrigen;
+    double montotarjetaSeleccionda;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,7 @@ public class EnviarPlata extends AppCompatActivity {
         editTextPanDestino=findViewById(R.id.editTextPanDestino);
         editTextMensajeTransferencia=findViewById(R.id.editTextMensajeTransferencia);
         editTextmontoEnviar=findViewById(R.id.editTextmontoEnviar);
+        montoActualTarjeta=findViewById(R.id.montoActualTarjeta);
 
         dbHelper = new AdminSQLiteOpenHelper(this);
         Bundle bundle =getIntent().getExtras();
@@ -61,6 +68,9 @@ public class EnviarPlata extends AppCompatActivity {
                // Toast.makeText(EnviarPlata.this,"TU SELECCIÓN ES: " + tarjetaSeleccionada.getPan(),Toast.LENGTH_SHORT).show();
 
                  panOrigen=tarjetaSeleccionada.getPan();
+                 montotarjetaSeleccionda= tarjetaSeleccionada.getSaldo();
+                 montoActualTarjeta.setText(String.format("$%,.2f",montotarjetaSeleccionda ));
+
             }
 
             @Override
@@ -68,7 +78,6 @@ public class EnviarPlata extends AppCompatActivity {
                 // No se seleccionó nada
             }
         });
-
 
     }
     public void RealizarEnvio(View v){
@@ -112,15 +121,53 @@ public class EnviarPlata extends AppCompatActivity {
 
         if(!existe){
             error=false;
-            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "¡Error Depronto el PAN NO EXISTE!", Snackbar.LENGTH_SHORT);
-            TextView textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+             snackbar = Snackbar.make(findViewById(android.R.id.content), "¡Error Depronto el PAN NO EXISTE!", Snackbar.LENGTH_SHORT);
+             textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
             textView.setTextColor(Color.WHITE);
             snackbar.setBackgroundTint(Color.parseColor("#ff0000"));
             snackbar.show();
 
         }
         if(error==true){
-            Toast.makeText(EnviarPlata.this,"Se va realizar la Transaccion. " ,Toast.LENGTH_SHORT).show();
+            snackbar = Snackbar.make(findViewById(android.R.id.content), "¡CARGANDO...!", Snackbar.LENGTH_SHORT);
+             textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+            textView.setTextColor(Color.WHITE);
+            snackbar.setBackgroundTint(Color.parseColor("#FFA500"));
+            snackbar.show();
+
+            double montoEnviar=Double.parseDouble(monto);
+
+            if(montoEnviar>0){
+
+                if(montoEnviar<montotarjetaSeleccionda){
+                    boolean exitoTransaccion=dbHelper.enviarDinero( panOrigen, panDestino, mensajeTrans, montoEnviar);
+                    if(exitoTransaccion){
+                        Toast.makeText(EnviarPlata.this,"Transaccion Realizada. " ,Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else{
+                        snackbar = Snackbar.make(findViewById(android.R.id.content), "¡Error inesperado en la transacción."+"\nSalga y entente de nuevo mas tarde", Snackbar.LENGTH_SHORT);
+                        textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+                        textView.setTextColor(Color.WHITE);
+                        snackbar.setBackgroundTint(Color.parseColor("#ff0000"));
+                        snackbar.show();
+                    }
+                }else{
+                    snackbar = Snackbar.make(findViewById(android.R.id.content), "No tienes suficiente saldo para la transacción.", Snackbar.LENGTH_SHORT);
+                    textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+                    textView.setTextColor(Color.WHITE);
+                    snackbar.setBackgroundTint(Color.parseColor("#ff0000"));
+                    snackbar.show();
+                    editTextmontoEnviar.setBackgroundResource(R.drawable.edittext_border_error);
+                }
+
+            }else {
+                snackbar = Snackbar.make(findViewById(android.R.id.content), "¡El monto no puede ser menor a 0.", Snackbar.LENGTH_SHORT);
+                textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
+                snackbar.setBackgroundTint(Color.parseColor("#ff0000"));
+                snackbar.show();
+                editTextmontoEnviar.setBackgroundResource(R.drawable.edittext_border_error);
+            }
 
         }else{
 
@@ -130,12 +177,18 @@ public class EnviarPlata extends AppCompatActivity {
     }
 
     private void error(){
-        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "¡Error en un Dato o esta  vacio!", Snackbar.LENGTH_SHORT);
-        TextView textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+         snackbar = Snackbar.make(findViewById(android.R.id.content), "¡Error en un Dato o esta  vacio!", Snackbar.LENGTH_SHORT);
+         textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
         textView.setTextColor(Color.WHITE);
         snackbar.setBackgroundTint(Color.parseColor("#ff0000"));
         snackbar.show();
     }
+
+    public void volver(View v){
+        finish();
+    }
+
+
 
 
 
