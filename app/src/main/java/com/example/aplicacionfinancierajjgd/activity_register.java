@@ -253,4 +253,6 @@ public class activity_register extends AppCompatActivity  {
         snackbar.setBackgroundTint(Color.parseColor("#ff0000"));
         snackbar.show();
     }
+
+
 }

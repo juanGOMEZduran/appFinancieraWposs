@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -59,6 +60,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
                 "    tarjeta_origen INTEGER NOT NULL,\n" +
                 "    tarjeta_destino INTEGER NOT NULL,\n" +
                 "    monto REAL NOT NULL,\n" +
+                "    descripcion_mesage TEXT NOT NULL,\n" +
                 "    fecha TEXT DEFAULT CURRENT_TIMESTAMP,\n" +
                 "    FOREIGN KEY (tarjeta_origen) REFERENCES tarjetas(id_tarjeta),\n" +
                 "    FOREIGN KEY (tarjeta_destino) REFERENCES tarjetas(id_tarjeta)\n" +
@@ -321,6 +323,98 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         cursor.close();
         return listaTarjetas;
     }
+
+    public boolean existeTarjetaConPAN(String pan) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        boolean existe = false;
+
+        try {
+            cursor = db.rawQuery("SELECT id_tarjeta FROM tarjetas WHERE pan = ?",
+                    new String[]{pan});
+            existe = cursor.getCount() > 0;
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return existe;
+    }
+
+
+    public boolean enviarDinero(String panOrigen, String panDestino, String mensaje, double monto) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        try {
+
+
+            db.beginTransaction();
+
+            if(Objects.equals(panOrigen, panDestino)){
+                return false;
+            }
+            Cursor cursorOrigen = db.rawQuery(
+                    "SELECT t.id_tarjeta, t.saldo, t.id_usuario FROM tarjetas t WHERE t.pan = ?",
+                    new String[]{panOrigen});
+            Cursor cursorDestino = db.rawQuery(
+                    "SELECT t.id_tarjeta, t.saldo, t.id_usuario FROM tarjetas t WHERE t.pan = ?",
+                    new String[]{panDestino});
+
+            if (!cursorOrigen.moveToFirst() || !cursorDestino.moveToFirst()) {
+
+                cursorOrigen.close();
+                cursorDestino.close();
+                return false;
+            }
+
+            int idTarjetaOrigen = cursorOrigen.getInt(0);
+            double saldoOrigen = cursorOrigen.getDouble(1);
+            int idUsuarioOrigen = cursorOrigen.getInt(2);
+
+            int idTarjetaDestino = cursorDestino.getInt(0);
+            double saldoDestino = cursorDestino.getDouble(1);
+            int idUsuarioDestino = cursorDestino.getInt(2);
+
+            cursorOrigen.close();
+            cursorDestino.close();
+
+
+
+            if (idUsuarioOrigen == idUsuarioDestino) {
+                return false;
+            }
+
+            if (saldoOrigen < monto) {
+                return false;
+            }
+
+            ContentValues valoresOrigen = new ContentValues();
+            valoresOrigen.put("saldo", saldoOrigen - monto);
+            db.update("tarjetas", valoresOrigen, "pan = ?", new String[]{panOrigen});
+
+            ContentValues valoresDestino = new ContentValues();
+            valoresDestino.put("saldo", saldoDestino + monto);
+            db.update("tarjetas", valoresDestino, "pan = ?", new String[]{panDestino});
+
+            ContentValues valoresTransferencia = new ContentValues();
+            valoresTransferencia.put("tarjeta_origen", idTarjetaOrigen);
+            valoresTransferencia.put("tarjeta_destino", idTarjetaDestino);
+            valoresTransferencia.put("monto", monto);
+            valoresTransferencia.put("descripcion_mesage", mensaje);
+            db.insert("transferencias", null, valoresTransferencia);
+
+            db.setTransactionSuccessful();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            db.endTransaction();
+        }
+    }
+
     public void cerrarSesion(int idUsuario) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE sesiones SET activa = 0 WHERE id_usuario = " + idUsuario);

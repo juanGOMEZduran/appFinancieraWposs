@@ -253,6 +253,12 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void irEnviarPlata(View view){
+        Intent intent = new Intent(HomeActivity.this, EnviarPlata.class);
+        intent.putExtra("idUsuario", idUsuario);
+        startActivity(intent);
+    }
+
 
 
 
