@@ -18,6 +18,7 @@
         android:textColor="@color/verdeSecundario"
         android:textSize="20sp"
         android:textStyle="bold"
+
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +54,7 @@
             android:layout_height="46dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
-
+            android:maxLength="15"
             android:background="@drawable/edittext_border"
             android:drawableStart="@drawable/icon_person"
             android:drawablePadding="5dp"
@@ -167,6 +168,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/edittext_border"
             android:ems="10"
+            android:maxLength="15"
             android:fontFamily="@font/ar_one_sans_medium"
             android:hint="321000050"
             android:drawableStart="@drawable/icon_numero_celular"
@@ -182,6 +184,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/edittext_border"
             android:ems="10"
+            android:maxLength="15"
             android:fontFamily="@font/ar_one_sans_medium"
             android:hint="example 1003000950"
             android:drawableStart="@drawable/icon_cedula"
@@ -196,6 +199,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+
+
             android:layout_marginEnd="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.052"
@@ -210,6 +215,7 @@
                 android:background="@drawable/edittext_border"
                 android:drawableStart="@drawable/icon_password"
                 android:drawablePadding="5dp"
+                android:maxLength="15"
                 android:ems="10"
                 android:fontFamily="@font/ar_one_sans_medium"
                 android:hint="**********"
@@ -254,6 +260,7 @@
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="10dp"
+                android:maxLength="15"
                 android:background="@drawable/edittext_border"
                 android:drawableStart="@drawable/icon_password"
                 android:drawablePadding="5dp"

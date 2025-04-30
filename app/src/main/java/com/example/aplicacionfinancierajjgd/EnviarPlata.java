@@ -145,7 +145,7 @@ public class EnviarPlata extends AppCompatActivity {
                         Toast.makeText(EnviarPlata.this,"Transaccion Realizada. " ,Toast.LENGTH_SHORT).show();
                         finish();
                     }else{
-                        snackbar = Snackbar.make(findViewById(android.R.id.content), "¡Error inesperado en la transacción."+"\nSalga y entente de nuevo mas tarde", Snackbar.LENGTH_SHORT);
+                        snackbar = Snackbar.make(findViewById(android.R.id.content), "¡Error inesperado en la transacción."+"\nSalga y intente de nuevo mas tarde", Snackbar.LENGTH_SHORT);
                         textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
                         textView.setTextColor(Color.WHITE);
                         snackbar.setBackgroundTint(Color.parseColor("#ff0000"));

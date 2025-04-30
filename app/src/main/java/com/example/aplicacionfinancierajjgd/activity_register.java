@@ -90,21 +90,39 @@ public class activity_register extends AppCompatActivity  {
         String contrasena2=editTextContrasenaRegisterDos.getText().toString();
         boolean hayErrores = false;
 
-        if(nombreRegister.isEmpty()){
+        if (nombreRegister.isEmpty()) {
             editTextNombreRegister.setBackgroundResource(R.drawable.edittext_border_error);
             error();
             hayErrores = true;
-        }else{
+        } else if (nombreRegister.length() < 4) {
+            editTextNombreRegister.setBackgroundResource(R.drawable.edittext_border_error);
+            mostrarSnackbarError("¡Error: nombre menor a 4 caracteres!");
+            hayErrores = true;
+        } else if (!contieneSoloLetrasYEspacios(nombreRegister)) {
+            editTextNombreRegister.setBackgroundResource(R.drawable.edittext_border_error);
+            mostrarSnackbarError("¡Error: el nombre solo puede contener letras y espacios!");
+            hayErrores = true;
+        } else {
             editTextNombreRegister.setBackgroundResource(R.drawable.edittext_border);
         }
 
-        if(apellidoRegister.isEmpty()){
+
+        if (apellidoRegister.isEmpty()) {
             editTextApellidoRegister.setBackgroundResource(R.drawable.edittext_border_error);
             error();
             hayErrores = true;
-        }else{
+        } else if (apellidoRegister.length() < 4) {
+            editTextApellidoRegister.setBackgroundResource(R.drawable.edittext_border_error);
+            mostrarSnackbarError("¡Error: apellido menor a 4 caracteres!");
+            hayErrores = true;
+        } else if (!contieneSoloLetrasYEspacios(apellidoRegister)) {
+            editTextApellidoRegister.setBackgroundResource(R.drawable.edittext_border_error);
+            mostrarSnackbarError("¡Error: el apellido solo puede contener letras y espacios!");
+            hayErrores = true;
+        } else {
             editTextApellidoRegister.setBackgroundResource(R.drawable.edittext_border);
         }
+
 
         if(correoRegister.isEmpty()){
             editTextCorreoRegister.setBackgroundResource(R.drawable.edittext_border_error);
@@ -130,15 +148,39 @@ public class activity_register extends AppCompatActivity  {
             error();
             hayErrores = true;
         }else{
-            editTextNumeroRegister.setBackgroundResource(R.drawable.edittext_border);
+            if(numeroRegister.length()<10){
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Numero de telefono menor a 10 digitos!", Snackbar.LENGTH_SHORT);
+                TextView textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
+                snackbar.setBackgroundTint(Color.parseColor("#ff0000"));
+                snackbar.show();
+                editTextNumeroRegister.setBackgroundResource(R.drawable.edittext_border_error);
+                hayErrores = true;
+            }else{
+                editTextNumeroRegister.setBackgroundResource(R.drawable.edittext_border);
+            }
+
         }
 
-        if(numeroCedula.isEmpty()){
+        if(numeroCedula.isEmpty() ){
             editTextNumeroCedula.setBackgroundResource(R.drawable.edittext_border_error);
             error();
             hayErrores = true;
         }else{
-            editTextNumeroCedula.setBackgroundResource(R.drawable.edittext_border);
+            if(numeroCedula.length()<7 || numeroCedula.length()>10){
+                editTextNumeroCedula.setBackgroundResource(R.drawable.edittext_border_error);
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "La cedula menor a 7 o mayor a 10!", Snackbar.LENGTH_SHORT);
+                TextView textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
+                snackbar.setBackgroundTint(Color.parseColor("#ff0000"));
+                snackbar.show();
+                hayErrores = true;
+            }else{
+                editTextNumeroCedula.setBackgroundResource(R.drawable.edittext_border);
+            }
+
+
+
         }
 
         if(contrasena1.isEmpty()){
@@ -146,7 +188,20 @@ public class activity_register extends AppCompatActivity  {
             error();
             hayErrores = true;
         }else{
-            editTextContrasenaRegister.setBackgroundResource(R.drawable.edittext_border);
+            if(contrasena1.length()<4){
+                editTextContrasenaRegister.setBackgroundResource(R.drawable.edittext_border_error);
+                editTextContrasenaRegisterDos.setBackgroundResource(R.drawable.edittext_border_error);
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "La contraseña no puede ser menos de 4 digitos!", Snackbar.LENGTH_SHORT);
+                TextView textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
+                snackbar.setBackgroundTint(Color.parseColor("#ff0000"));
+                snackbar.show();
+                hayErrores = true;
+
+            }else{
+                editTextContrasenaRegister.setBackgroundResource(R.drawable.edittext_border);
+            }
+
         }
 
         if(contrasena2.isEmpty()){
@@ -254,5 +309,17 @@ public class activity_register extends AppCompatActivity  {
         snackbar.show();
     }
 
+    private boolean contieneSoloLetrasYEspacios(String texto) {
+        return texto.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]+");
+    }
+
+
+    private void mostrarSnackbarError(String mensaje) {
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), mensaje, Snackbar.LENGTH_SHORT);
+        TextView textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+        textView.setTextColor(Color.WHITE);
+        snackbar.setBackgroundTint(Color.parseColor("#ff0000"));
+        snackbar.show();
+    }
 
 }

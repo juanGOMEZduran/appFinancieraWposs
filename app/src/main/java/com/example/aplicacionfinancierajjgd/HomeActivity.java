@@ -172,11 +172,13 @@ public class HomeActivity extends AppCompatActivity {
 
             String nombreTarjeta = cursor.getString(1);
             String pan = cursor.getString(2);
-            String panFormateado = formatearNumeroTarjeta(pan);
+           // String panFormateado = formatearNumeroTarjeta(pan);
             String expiracion = cursor.getString(3);
             String cvv = cursor.getString(4);
             double saldo = cursor.getDouble(5);
             int principal = cursor.getInt(6);
+
+            String panFormateado = "•••• •••• •••• " + pan.substring(12);
 
             nombretargeta.setText(nombreTarjeta);
             panTarjeta.setText(panFormateado);
@@ -194,7 +196,7 @@ public class HomeActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.lista_tarjetas);
 
-        // Crea el listener
+
         TarjetaAdapter.OnItemClickListener listener = tarjeta -> {
             int panTarjeta=tarjeta.getIdTarjeta();
             Toast.makeText(HomeActivity.this,

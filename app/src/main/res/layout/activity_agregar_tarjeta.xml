@@ -41,6 +41,7 @@
             android:layout_marginTop="64dp"
             android:background="@drawable/edittext_border"
             android:ems="10"
+            android:maxLength="15"
             android:inputType="text"
             android:hint="Nombre de tarjeta"
             app:layout_constraintEnd_toEndOf="parent"

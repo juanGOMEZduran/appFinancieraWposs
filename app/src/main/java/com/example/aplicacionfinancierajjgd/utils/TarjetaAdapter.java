@@ -40,9 +40,9 @@ public class TarjetaAdapter extends RecyclerView.Adapter<TarjetaAdapter.TarjetaV
     public void onBindViewHolder(@NonNull TarjetaViewHolder holder, int position) {
         Tarjeta tarjeta = tarjetas.get(position);
 
-        // Formatear PAN para mostrar solo los últimos 4 dígitos
-       // String panFormateado = "•••• •••• •••• " + tarjeta.getPan().substring(12);
-        String panFormateado =  tarjeta.getPan();
+
+        String panFormateado = "•••• •••• •••• " + tarjeta.getPan().substring(12);
+        //String panFormateado =  tarjeta.getPan();
         double monto=tarjeta.getSaldo();
         String montoString=String.valueOf(monto);
         holder.nombreTarjeta.setText(tarjeta.getNombreTarjeta());

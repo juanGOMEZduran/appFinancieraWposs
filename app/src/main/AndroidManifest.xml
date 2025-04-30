@@ -11,31 +11,48 @@
         android:roundIcon="@mipmap/iconoaplicacion48"
         android:supportsRtl="true"
         android:theme="@style/Theme.AplicacionFinancieraJJGD"
+
         tools:targetApi="31">
         <activity
             android:name=".HistorialTranferencias"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".EnviarPlata"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".VerTarjetaSeleccionada"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".AgregarTarjeta"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".PerfilUser"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
+            android:screenOrientation="portrait"
+
             android:exported="false"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity_register"
+            android:screenOrientation="portrait"
+
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +60,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+
+            />
     </application>
 
 </manifest>
