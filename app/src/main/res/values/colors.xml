@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="verdePrincipal">#214e26</color>
+    <color name="verdeSecundario">#3c8544</color>
+    <color name="verdeTerciario">#edf1e8</color>
+    <color name="verdeSeleccionado">#ace76d</color>
+    <color name="error"> #ff0000</color>
+</resources>

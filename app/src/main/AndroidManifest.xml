@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/iconoaplicacion48"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/iconoaplicacion48"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AplicacionFinancieraJJGD"
+
+        tools:targetApi="31">
+        <activity
+            android:name=".HistorialTranferencias"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name=".EnviarPlata"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name=".VerTarjetaSeleccionada"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name=".AgregarTarjeta"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name=".PerfilUser"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:screenOrientation="portrait"
+
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity_register"
+            android:screenOrientation="portrait"
+
+            android:exported="false" />
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+
+            />
+    </application>
+
+</manifest>

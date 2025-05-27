@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itemHome"
+        android:icon="@drawable/icon_home"
+        android:title="INICIO"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/itemTransacciones"
+        android:icon="@drawable/icon_historial_transaccion"
+        android:title="HISTORIAL"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/itemperfil"
+        android:icon="@drawable/icon_cedula"
+        android:title="PERFIL"
+        app:showAsAction="always" />
+</menu>
